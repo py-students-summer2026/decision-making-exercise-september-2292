@@ -14,6 +14,8 @@ def roll_die():
     :returns: the pseudo-random integer.
     """
     # complete this function below here
+    roll = random.randint(1, 6)
+    return roll
 
 
 def get_question_type():
@@ -24,6 +26,12 @@ def get_question_type():
     :returns: "sum" for an addition question, "difference" for a subtraction question.
     """
     # complete this function below here
+    roll = roll_die()
+    if 1 <= roll <= 3:
+        return "sum"
+    else:
+        return "difference"
+
 
 
 def print_question(die_1_value, die_2_value, question_type):
@@ -43,6 +51,12 @@ def print_question(die_1_value, die_2_value, question_type):
     :returns: None
     """
     # complete this function below here
+    choose = ""
+    if question_type == "sum":
+        choose = "of"
+    else:
+        choose = "between"
+    print("You rolled a " + str(die_1_value) + " and a " + str(die_2_value) + "... What is the " + str(question_type)+ " "+ str(choose) +" " +str(die_1_value) + " and " + str(die_2_value) + "?" )
 
 
 def input_answer():
@@ -56,6 +70,11 @@ def input_answer():
     :returns: The user's answer, as an int, if valid; or -1 if the user's response was not valid.
     """
     # complete this function below here
+    answer = input("Please enter your answer to the previous question: ")
+    try:
+        return int(answer)
+    except ValueError:
+        return -1
 
 
 def is_correct_answer(die_1_value, die_2_value, question_type, given_answer):
@@ -69,7 +88,15 @@ def is_correct_answer(die_1_value, die_2_value, question_type, given_answer):
     :returns: True if the user's given answer is correct, False otherwise.
     """
     # complete this function below here
-
+    total = 0
+    if question_type == "sum":
+        total = die_1_value + die_2_value
+    else:
+        total = abs(die_1_value - die_2_value)
+    if total == given_answer:
+        return True
+    else:
+        return False
 
 def print_congratulations(question_type):
     """
@@ -82,6 +109,12 @@ def print_congratulations(question_type):
     :param question_type: A string - either "sum" or "difference" - indicating whether the user was asked to add or subtract the two integers.
     """
     # complete this function below here
+    type = ""
+    if question_type == "sum":
+        type = "addition"
+    else:
+        type = "subtraction"
+    print("Yes! Congratulations on the successful " + str(type) + "!")
 
 
 def print_correct_answer(die_1_value, die_2_value, question_type):
@@ -97,6 +130,17 @@ def print_correct_answer(die_1_value, die_2_value, question_type):
     :param question_type: A string - either "sum" or "difference" - indicating whether the user was asked to add or subtract the two integers.
     """
     # complete this function below here
+    total = 0
+    if question_type == "sum":
+        total = die_1_value + die_2_value
+    else:
+        total = abs(die_1_value - die_2_value)
+    choose = ""
+    if question_type == "sum":
+        choose = "of"
+    else:
+        choose = "between"
+    print("No! The " + str(question_type) + " " + str(choose) +" " + str(die_1_value) + " and " +str(die_2_value) + " is " + str(total) + "!")
 
 
 def print_error_message():
@@ -107,3 +151,4 @@ def print_error_message():
     - "Sorry - that is an invalid answer.  Bye Bye!"
     """
     # complete this function below here
+    print("Sorry - that is an invalid answer.  Bye Bye!")
